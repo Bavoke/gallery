@@ -1,3 +1,4 @@
+const config = require('./_config');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -8,11 +9,13 @@ let index = require('./routes/index');
 let image = require('./routes/image');
 
 // connecting the database
-let mongodb_url = 'mongodb://localhost:27017/';
-let dbName = 'darkroom';
-mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
-    if (err) console.log(err)
-});
+mongoose.connect(config.mongoURI.development, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err) => {
+    if (err) console.log(err);
+  });
+  
 
 // test if the database has connected successfully
 let db = mongoose.connection;
