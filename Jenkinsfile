@@ -13,9 +13,9 @@ pipeline {
             post {
                 failure {
                     emailext (
-                        subject: '🚨 Tests Failed in Build ${BUILD_NUMBER}',
+                        subject: '🚨 Tests Failed in Build 3304',
                         body: 'Check ${BUILD_URL}console',
-                        to: 'your-email@example.com'
+                        to: 'kihiu253@gmail.com'
                     )
                 }
             }
