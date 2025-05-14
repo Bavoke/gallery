@@ -1,24 +1,34 @@
 pipeline {
-    agent any  // Runs on any available Jenkins agent
-
+    agent any
+    tools {
+        nodejs 'NodeJS' 
+    }
     stages {
-        // Stage 1: Install dependencies
         stage('Install') {
-            steps {
-                sh 'npm install'  // Installs Node.js dependencies
+            steps { sh 'npm install' }
+        }
+        
+        stage('Test') {
+            steps { sh 'npm test' }
+            post {
+                failure {
+                    emailext (
+                        subject: '🚨 Tests Failed in Build ${BUILD_NUMBER}',
+                        body: 'Check ${BUILD_URL}console',
+                        to: 'your-email@example.com'
+                    )
+                }
             }
         }
-
-        // Stage 2: Deploy to Render
+        
         stage('Deploy') {
-            steps {
-                sh 'node server.js'  // Starts the server (Render will handle deployment)
+            steps { 
+                sh 'node server.js' 
+                echo 'Render will handle deployment'
             }
         }
     }
-
-    // Trigger pipeline on Git push (via webhook or polling)
     triggers {
-        pollSCM('* * * * *')  // Checks for changes every minute (temporary)
+        pollSCM('* * * * *')
     }
 }
