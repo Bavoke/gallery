@@ -7,12 +7,26 @@ const path = require('path');
 let index = require('./routes/index');
 let image = require('./routes/image');
 
-// connecting the database
-let mongodb_url = 'mongodb://localhost:27017/';
-let dbName = 'darkroom';
-mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
-    if (err) console.log(err)
-});
+// connecting the database                 This portion has been replaced.
+// let mongodb_url = 'mongodb://localhost:27017/';
+//let dbName = 'darkroom';
+// mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
+//     if (err) console.log(err)
+// });
+
+
+const config = require('./_config'); // Make sure to require _config.js
+
+// Connect to MongoDB Atlas (using the development database)
+mongoose.connect(config.mongoURI.development, { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true 
+})
+.then(() => console.log('Connected to MongoDB Atlas!'))
+.catch(err => console.error('MongoDB connection error:', err));
+
+
+
 
 // test if the database has connected successfully
 let db = mongoose.connection;
