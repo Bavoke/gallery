@@ -12,11 +12,11 @@ let image = require('./routes/image');
 const app = express();
 
 // connecting the database
-let mongodb_url = 'mongodb://localhost:27017/';
-let dbName = 'darkroom';
-mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
-    if (err) console.log(err)
-});
+// let mongodb_url = 'mongodb://localhost:27017/';
+// let dbName = 'darkroom';
+// mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedTopology: true }, (err)=>{
+//     if (err) console.log(err)
+// });
 
 // test if the database has connected successfully
 // let db = mongoose.connection;
@@ -24,6 +24,18 @@ mongoose.connect(`${mongodb_url}${dbName}`,{ useNewUrlParser: true , useUnifiedT
 //     console.log('Database connected successfully')
 // })
 
+
+
+
+// Connecting the database.
+// Connecting to MongoDB Atlas
+mongoose.connect(config.mongoURI.development, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000 // Timeout after 5 seconds
+})
+.then(() => console.log('Successfully connected to MongoDB Atlas'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 
 
