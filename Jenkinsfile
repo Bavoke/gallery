@@ -20,7 +20,7 @@ pipeline {
             post {
                 failure {
                     emailext (
-                        subject: '🚨 Tests Failed in Build ${BUILD_NUMBER}',
+                        subject: 'Tests Failed in Build ${BUILD_NUMBER}',
                         body: """
                         <h2>Test Failure Alert</h2>
                         <p><b>Build URL:</b> <a href="${BUILD_URL}">${BUILD_URL}</a></p>
@@ -48,7 +48,7 @@ pipeline {
                 slackSend(
                     channel: '#KELVIN_IP1',
                     message: """
-                    ✅ *Deployment Successful* 
+                    *Deployment Successful* 
                     *Build #*: ${BUILD_NUMBER}
                     *Live Site*: https://gallery-ynej.onrender.com
                     *Details*: ${BUILD_URL}console
